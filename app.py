@@ -57,17 +57,9 @@ class DOJO(cmd.Cmd):
     instance=Dojo()
     prompt = colored('DOJO$$$', 'magenta', attrs=['blink','bold'])
 
-
-    @docopt_cmd
-    def do_quit(self, arg):
-        """Usage: quit"""
-        os.system('clear')
-        print ('Dojo Exiting')
-        exit()
-
     @docopt_cmd
     def do_create_room(self, arg):
-        """Usage: create_room <name> <type_room>"""
+        """Usage: create_room <type_room> <name>..."""
         pass
 
     @docopt_cmd
@@ -75,6 +67,12 @@ class DOJO(cmd.Cmd):
         """Usage: add_person <firstname> <surname> [wants_accomodation="N"]"""
         pass
 
+    @docopt_cmd
+    def do_quit(self, arg):
+        """Usage: quit"""
+        os.system('clear')
+        print ('Dojo Exiting')
+        exit()
 
 if __name__ == "__main__":
     try:

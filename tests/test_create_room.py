@@ -11,6 +11,8 @@ class TestCreateRoom(unittest.TestCase):
         spire_office = self.dojo.create_room('Spire','office')
         self.new_rooms = len(self.dojo.all_rooms)
         self.assertEqual(self.new_rooms - self.initial_rooms, 2)
+        self.assertEqual('An office called Spire has been created successfully!',spire_office)
+        self.assertEqual('A Livingspace called Amity has been created successfully!',amity_livingspace)
 
     def test_it_fails_with_existing_room(self):
         exist_room = self.dojo.create_room('Amhere','office')

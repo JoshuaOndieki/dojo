@@ -12,21 +12,23 @@ class Dojo():
         self.all_people=[]
 
     def create_room(self, name,room_type):
-        if room_type=='office':
+        if room_type.lower()=='office'.lower():
             room=Office(name)
             self.offices[name]=room.members
             self.all_rooms[name]=[room_type,room.members]
-        elif room_type=='livingspace':
+            return('An office called %s has been created successfully!'%(name))
+        elif room_type.lower()=='livingspace'.lower():
             room=LivingSpace(name)
             self.livingspaces[name]=room.members
             self.all_rooms[name]=[room_type,room.members]
+            return('A Livingspace called %s has been created successfully!'%(name))
 
     def add_person(self, firstname,surname,person_type,wants_accomodation='N'):
-        if person_type=='Fellow':
+        if person_type.lower()=='Fellow'.lower():
             fellow=Fellow(firstname,surname)
             self.fellows.append([fellow.firstname,fellow.surname])
             self.all_people.append([fellow.firstname,fellow.surname])
-        elif person_type=='Staff':
+        elif person_type.lower()=='Staff'.lower():
             staff=Staff(firstname,surname)
             self.staff.append([firstname,surname])
             self.all_people.append([firstname,surname])

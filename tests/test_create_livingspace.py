@@ -7,3 +7,6 @@ class TestLivingSpace(unittest.TestCase):
         self.assertTrue(self.livingspace)
         self.assertEqual(self.livingspace.capacity,4)
         self.assertEqual(self.livingspace.members,[])
+
+if __name__ == '__main__':
+    unittest.main()

@@ -7,3 +7,6 @@ class TestOffice(unittest.TestCase):
         self.assertTrue(self.office)
         self.assertEqual(self.office.capacity,6)
         self.assertEqual(self.office.members,[])
+
+if __name__ == '__main__':
+    unittest.main()

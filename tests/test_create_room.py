@@ -26,9 +26,9 @@ class TestCreateRoom(unittest.TestCase):
         self.assertEqual('Only offices and livingspaces allowed!',invalid_type)
 
     def test_fails_with_room_name_not_string(self):
-        invalid_room = self.dojo.create_room('[Amhere]','office')
+        invalid_room = self.dojo.create_room(['Amhere'],'office')
         invalid_room1 = self.dojo.create_room({'Amhere':'room'},'office')
-        invalid_room2 = self.dojo.create_room('[Amhere]','livingspace')
+        invalid_room2 = self.dojo.create_room(['Amhere'],'livingspace')
         invalid_room3 = self.dojo.create_room({'Amhere':'room'},'livingspace')
         self.assertEqual(invalid_room,'Room names can only be strings!')
         self.assertEqual(invalid_room1,'Room names can only be strings!')

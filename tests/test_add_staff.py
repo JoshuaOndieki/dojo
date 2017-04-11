@@ -6,3 +6,7 @@ class TestStaff(unittest.TestCase):
         self.staff=Staff('James','Ndiga')
         self.assertTrue(self.staff)
         self.assertTrue('James'==self.staff.firstname and 'Ndiga'==self.staff.surname)
+
+
+if __name__ == __main__:
+    unittest.main()

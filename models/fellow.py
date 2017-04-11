@@ -1,4 +1,7 @@
 from person import Person
 
 class Fellow(Person):
-    pass
+    def __init__(self,firstname,surname):
+        super().__init__(self,firstname,surname)
+        self.firstname=firstname
+        self.surname=surname

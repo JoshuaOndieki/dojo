@@ -4,10 +4,11 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  -pip install nosetests
   - pip install coveralls
   - pip install coverage
 # command to run tests
-script: pytest
+script: nosetests
 
 after-success:
   - coveralls

@@ -1,7 +1,7 @@
 """
     Usage:
-        create_room <name> <type_room>
-        add_person <firstname> <surname> [wants_accomodation="N"]
+        create_room <type_room> <name>...
+        add_person <firstname> <surname> <FELLOW|STAFF> [wants_accomodation]
         dojo (-i | --interactive)
         dojo (-h | --help | --version)
     Options:
@@ -54,18 +54,19 @@ def intro():
 
 
 class DOJO(cmd.Cmd):
-    instance=Dojo()
+
     prompt = colored('DOJO$$$', 'magenta', attrs=['blink','bold'])
 
     @docopt_cmd
     def do_create_room(self, arg):
         """Usage: create_room <type_room> <name>..."""
-        pass
+        for room in arg['<name>']:
+            print(Dojo().create_room(room,arg['<type_room>']))
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <firstname> <surname> [wants_accomodation="N"]"""
-        pass
+        """Usage: add_person <firstname> <surname> <FELLOW|STAFF> [wants_accomodation]"""
+        print(Dojo().add_person(arg['<firstname>']),arg['<surname>'],arg['<FELLOW|STAFF>'],arg['[wants_accomodation]'])
 
     @docopt_cmd
     def do_quit(self, arg):

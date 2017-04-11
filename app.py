@@ -1,7 +1,7 @@
 """
     Usage:
         create_room <type_room> <name>...
-        add_person <firstname> <surname> <FELLOW|STAFF> [wants_accomodation]
+        add_person <firstname> <surname> <person_type> [<wants_accomodation>]
         dojo (-i | --interactive)
         dojo (-h | --help | --version)
     Options:
@@ -16,6 +16,7 @@ import os
 import sys
 from models.dojo import Dojo
 from termcolor import colored
+from insta import instance
 
 
 def docopt_cmd(func):
@@ -61,12 +62,12 @@ class DOJO(cmd.Cmd):
     def do_create_room(self, arg):
         """Usage: create_room <type_room> <name>..."""
         for room in arg['<name>']:
-            print(Dojo().create_room(room,arg['<type_room>']))
+            print(instance.create_room(room,arg['<type_room>']))
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <firstname> <surname> <FELLOW|STAFF> [wants_accomodation]"""
-        print(Dojo().add_person(arg['<firstname>']),arg['<surname>'],arg['<FELLOW|STAFF>'],arg['[wants_accomodation]'])
+        """Usage: add_person <firstname> <surname> <person_type> [<wants_accomodation>]"""
+        print(instance.add_person(arg['<firstname>'],arg['<surname>'],arg['<person_type>'],arg['<wants_accomodation>']))
 
     @docopt_cmd
     def do_quit(self, arg):

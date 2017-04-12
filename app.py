@@ -80,7 +80,23 @@ class DOJO(cmd.Cmd):
             print(room)
             print('``````````````````````````````````````````')
             for person in room:
-                print(person)
+                print(room[person])
+
+    @docopt_cmd
+    def do_print_allocations(self, arg):
+        """Usage: print_allocations [<filename>]"""
+        allocations = instance.print_allocations(arg['<filename>'])
+        print(allocations)
+        for room in allocations:
+            print(room)
+            print('```````````````````````````````````````````')
+            members = ''
+            room_members = allocations[room]
+            for member in room_members:
+                members = members + ' '+ member
+            print(members)
+            print('')
+
 
     @docopt_cmd
     def do_quit(self, arg):

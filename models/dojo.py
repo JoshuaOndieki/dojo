@@ -71,9 +71,14 @@ class Dojo():
             room_members = {k:v[1] for k,v in self.all_rooms.items() if k==name}
             return room_members
         return "Room %s does not exist!"%(name)
-        
+
     def print_allocations(self,filename=None):
-        return 0
+        if filename is None:
+            allocations={k: v[1] for k, v in self.all_rooms.items() if v[1]}
+            return allocations
+        else:
+            #save to file
+            return 0
 
     def print_unallocations(self,filename=None):
         return 0

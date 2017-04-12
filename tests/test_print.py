@@ -41,7 +41,7 @@ class TestPrint(unittest.TestCase):
 
     def test_print_allocations_with_file(self):
         test_file = Path("test.txt")
-        self.assertTrue(if test_file.is_file())
+        self.assertTrue(test_file.is_file())
 
     def test_print_unallocations_without_file(self):
 
@@ -50,4 +50,4 @@ class TestPrint(unittest.TestCase):
 
     def test_print_unallocations_with_file(self):
         test_file = Path("test1.txt")
-        self.assertTrue(if test_file.is_file())
+        self.assertTrue(test_file.is_file())

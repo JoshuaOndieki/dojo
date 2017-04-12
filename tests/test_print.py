@@ -20,8 +20,9 @@ class TestPrint(unittest.TestCase):
                 self.instance.add_person(person[0],person[1],person[2],person[3])
             else:
                 self.instance.add_person(person[0],person[1],person[2])
-        self.instance.all_people.append('Lost Guy')  #add a person without getting allocations BUT should have:: LOST GUY FELLOW Y
-        
+        self.instance.fellows.append('Lost Guy')
+        self.instance.all_people.append('Lost Guy')  #add a person without getting allocations :: LOST GUY FELLOW Y
+
     def tearDown(self):
         """Delete all files used during testing"""
         os.remove('test.txt')

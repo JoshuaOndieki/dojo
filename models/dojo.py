@@ -49,15 +49,33 @@ class Dojo():
                 self.fellows.append(firstname +' '+ surname)
                 self.all_people.append(firstname +' '+ surname)
                 if self.offices:
-                    office=random.choice(list(self.offices))
-                    self.offices[office].append(firstname +' '+ surname)
-                    print(success('Fellow %s %s has been assigned office %s!'%(firstname,surname,office)))
+                    all_offices = list(self.offices.keys())
+                    checked_offices = []
+                    while True:
+                        office=random.choice(list(self.offices))
+                        if len(self.offices[office]) < 6:
+                            self.offices[office].append(firstname +' '+ surname)
+                            print(success('Fellow %s %s has been assigned office %s!'%(firstname,surname,office)))
+                            break
+                        if office not in checked_offices: checked_offices.append(office)
+                        if checked_offices == all_offices:
+                            print(error('All offices are full at the moment!'))
+                            break
                 else:
                     print(error('No office to assign!'))
                 if wants_accomodation=='Y' and self.livingspaces:
-                    room=random.choice(list(self.livingspaces))
-                    self.livingspaces[room].append(firstname +' '+ surname)
-                    print(success('Fellow %s %s has been assigned livingspace %s!'%(firstname,surname,room)))
+                    all_livingspaces = list(self.livingspaces.keys())
+                    checked_livingspaces = []
+                    while True:
+                        room=random.choice(list(self.livingspaces))
+                        if len(self.livingspaces[room]) < 4:
+                            self.livingspaces[room].append(firstname +' '+ surname)
+                            print(success('Fellow %s %s has been assigned livingspace %s!'%(firstname,surname,room)))
+                            break
+                        if room not in checked_livingspaces: checked_livingspaces.append(room)
+                        if checked_livingspaces == all_livingspaces:
+                            print(error('All livingspaces are full at the moment!'))
+                            break
                 return(success('Fellow %s %s has been added successfully!'%(firstname,surname)))
             elif person_type.lower()=='staff':
                 #create a staff member

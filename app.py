@@ -88,24 +88,13 @@ class DOJO(cmd.Cmd):
     @docopt_cmd
     def do_print_allocations(self, arg):
         """Usage: print_allocations [<filename>]"""
-        allocations = instance.print_allocations(arg['<filename>'])
-        print(allocations)
-        for room in allocations:
-            print(room)
-            print('```````````````````````````````````````````')
-            members = ''
-            room_members = allocations[room]
-            for member in room_members:
-                members = members + ' '+ member
-            print(members)
-            print('')
+        instance.print_allocations(arg['<filename>'])
 
     @docopt_cmd
     def do_print_unallocations(self, arg):
         """Usage: print_allocations [<filename>]"""
         unallocations = instance.print_unallocations(arg['<filename>'])
-        for person in unallocations:
-            print('\n'+person)
+
 
     @docopt_cmd
     def do_quit(self, arg):

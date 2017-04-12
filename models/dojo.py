@@ -78,12 +78,21 @@ class Dojo():
         return (error("Room %s does not exist!"%(name)))
 
     def print_allocations(self,filename=None):
-        if filename is None:
-            allocations={k: v[1] for k, v in self.all_rooms.items() if v[1]}
-            return allocations
-        else:
+        allocations={k: v[1] for k, v in self.all_rooms.items() if v[1]}
+        # return allocations
+        for room in allocations:
+            print(room)
+            print('```````````````````````````````````````````')
+            members = ''
+            room_members = allocations[room]
+            for member in room_members:
+                members = members + ' '+ member
+            print(members)
+            print('')
+        if filename is not None:
             #save to file
             return 0
+
 
     def print_unallocations(self,filename=None):
         allocated = []
@@ -94,9 +103,11 @@ class Dojo():
         unallocated_people = []
         for person in self.all_people:
             if person not in allocated:
-                unallocated_people.append(person)
+                unallocated_people.append(person+ '\n')
         if filename is None:
-            return unallocated_people
+            for person in unallocated_people:
+                print(person)
+            # return unallocated_people
         else:
-            #save to file
-            return 0
+            with open(filename, 'w') as file:
+                file.writelines(unallocated_people)

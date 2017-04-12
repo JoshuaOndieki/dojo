@@ -67,9 +67,11 @@ class Dojo():
                     print('No office to assign!')
                 return('Staff %s %s has been added successfully!'%(firstname,surname))
     def print_room(self,name):
-        room_members = {k:v[1] for k,v in self.all_rooms.items() if k==name}
-        return room_members
-
+        if name in self.all_rooms:
+            room_members = {k:v[1] for k,v in self.all_rooms.items() if k==name}
+            return room_members
+        return "Room %s does not exist!"%(name)
+        
     def print_allocations(self,filename=None):
         return 0
 

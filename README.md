@@ -7,6 +7,7 @@ An utterly fantastic CLI application for office Space Allocation
 ## Usage:
          `create_room <room_type> <name>...`
          `add_person <firstname> <surname> <person_type> [<wants_accomodation>]`
+         `print_room <name>`
 
 ## How to Use
 

@@ -2,6 +2,7 @@
     Usage:
         create_room <type_room> <name>...
         add_person <firstname> <surname> <person_type> [<wants_accomodation>]
+        print_room <name>
         dojo (-i | --interactive)
         dojo (-h | --help | --version)
     Options:
@@ -68,6 +69,18 @@ class DOJO(cmd.Cmd):
     def do_add_person(self, arg):
         """Usage: add_person <firstname> <surname> <person_type> [<wants_accomodation>]"""
         print(instance.add_person(arg['<firstname>'],arg['<surname>'],arg['<person_type>'],arg['<wants_accomodation>']))
+
+    @docopt_cmd
+    def do_print_room(self, arg):
+        """Usage: print_room <name>"""
+        room = instance.print_room(arg['<name>'])
+        if room == 'Room %s does not exist!'%(arg['<name>']):
+            print(room)
+        else:
+            print(room)
+            print('``````````````````````````````````````````')
+            for person in room:
+                print(person)
 
     @docopt_cmd
     def do_quit(self, arg):

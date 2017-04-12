@@ -79,6 +79,8 @@ class Dojo():
                 return(success('Fellow %s %s has been added successfully!'%(firstname,surname)))
             elif person_type.lower()=='staff':
                 #create a staff member
+                if wants_accomodation == 'Y':
+                    print(error('Staff can not be allocated livingspace!'))
                 staff=Staff(firstname,surname)
                 self.staff.append(firstname +' '+ surname)
                 self.all_people.append(firstname +' '+ surname)

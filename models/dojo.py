@@ -3,7 +3,7 @@ from models.staff import Staff
 from models.livingspace import LivingSpace
 from models.office import Office
 import random
-from modules.ui import error
+from modules.ui import error,success
 
 class Dojo():
     def __init__(self):
@@ -27,13 +27,13 @@ class Dojo():
                 self.room=Office(name)
                 self.offices[name]=self.room.members
                 self.all_rooms[name]=[room_type,self.room.members]
-                return('An office called %s has been created successfully!'%(name))
+                return(success('An office called %s has been created successfully!'%(name)))
             elif room_type.lower()=='livingspace'.lower():
                 #create a livingspace
                 self.room=LivingSpace(name)
                 self.livingspaces[name]=self.room.members
                 self.all_rooms[name]=[room_type,self.room.members]
-                return('A Livingspace called %s has been created successfully!'%(name))
+                return(success('A Livingspace called %s has been created successfully!'%(name)))
 
     def add_person(self, firstname,surname,person_type,wants_accomodation='N'):
         if person_type.lower() not in ['fellow','staff']:
@@ -51,14 +51,14 @@ class Dojo():
                 if self.offices:
                     office=random.choice(list(self.offices))
                     self.offices[office].append(firstname +' '+ surname)
-                    print('Fellow %s %s has been assigned office %s!'%(firstname,surname,office))
+                    print(success('Fellow %s %s has been assigned office %s!'%(firstname,surname,office)))
                 else:
                     print(error('No office to assign!'))
                 if wants_accomodation=='Y' and self.livingspaces:
                     room=random.choice(list(self.livingspaces))
                     self.livingspaces[room].append(firstname +' '+ surname)
-                    print('Fellow %s %s has been assigned livingspace %s!'%(firstname,surname,room))
-                return('Fellow %s %s has been added successfully!'%(firstname,surname))
+                    print(success('Fellow %s %s has been assigned livingspace %s!'%(firstname,surname,room)))
+                return(success('Fellow %s %s has been added successfully!'%(firstname,surname)))
             elif person_type.lower()=='staff':
                 #create a staff member
                 staff=Staff(firstname,surname)
@@ -67,10 +67,10 @@ class Dojo():
                 if self.offices:
                     office=random.choice(list(self.offices))
                     self.offices[office].append(firstname +' '+ surname)
-                    print('Staff %s %s has been assigned office %s!'%(firstname,surname,office))
+                    print(success('Staff %s %s has been assigned office %s!'%(firstname,surname,office)))
                 else:
                     print(error('No office to assign!'))
-                return('Staff %s %s has been added successfully!'%(firstname,surname))
+                return(success('Staff %s %s has been added successfully!'%(firstname,surname)))
     def print_room(self,name):
         if name in self.all_rooms:
             room_members = {k:v[1] for k,v in self.all_rooms.items() if k==name}

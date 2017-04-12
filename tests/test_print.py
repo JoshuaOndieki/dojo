@@ -22,6 +22,7 @@ class TestPrint(unittest.TestCase):
                 self.instance.add_person(person[0],person[1],person[2])
         self.instance.print_allocations('test.txt')
         self.instance.print_unallocations('test1.txt')
+        self.instance.all_people.append('Lost','Guy')  #add a person without getting allocations BUT should have:: LOST GUY FELLOW Y
 
     def tearDown(self):
         """Delete all files used during testing"""
@@ -34,7 +35,7 @@ class TestPrint(unittest.TestCase):
         self.assertEqual(query_with_room_name,people_in_Blue)
 
     def test_print_allocations_without_file(self):
-        get_allocations={k: v[1] for k, v in self.instance.all_rooms.items() if v[1]}
+        get_allocations={k: v[1] for k, v in self.instance.all_rooms.items() if v[1]}  #dict with room name as key and members as value list
         print_allocations = self.instance.print_allocations()
         self.assertEqual(print_allocations,get_allocations)
 
@@ -43,13 +44,9 @@ class TestPrint(unittest.TestCase):
         self.assertTrue(if test_file.is_file())
 
     def test_print_unallocations_without_file(self):
-        allocated_people = []
-        for key, value in self.instance.all_rooms.items():
-            for person in value[1]:
-                allocated_people.append(person)
-        unallocated_people = [p for p in self.instance.all_people if p is not in allocated_people]
+
         print_unallocations = self.instance.print_unallocations()
-        self.assertEqual(print_unallocations,unallocated_people)
+        self.assertEqual(print_unallocations,['LOST GUY FELLOW Y'])
 
     def test_print_unallocations_with_file(self):
         test_file = Path("test1.txt")

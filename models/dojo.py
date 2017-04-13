@@ -4,6 +4,7 @@ from models.livingspace import LivingSpace
 from models.office import Office
 import random
 from modules.ui import error,success
+from modules.validators import *
 
 class Dojo():
     def __init__(self):
@@ -43,6 +44,7 @@ class Dojo():
         if firstname+' '+surname in self.all_people:
             return(error('%s %s exists!'%(firstname,surname)))
         else:
+            if represents_int(firstname) or represents_int(surname): return error('Names can not be or contain integers!')
             if person_type.lower()=='fellow':
                 #create a fellow
                 fellow=Fellow(firstname,surname)
@@ -99,7 +101,6 @@ class Dojo():
 
     def print_allocations(self,filename=None):
         allocations={k: v[1] for k, v in self.all_rooms.items() if v[1]}
-        # return allocations
         for room in allocations:
             print(room)
             print('```````````````````````````````````````````')
@@ -110,8 +111,9 @@ class Dojo():
             print(members)
             print('')
         if filename is not None:
-            #save to file
-            return 0
+        #save to file
+            with open(filename, 'w') as file:
+                file.writelines(room_members)
 
 
     def print_unallocations(self,filename=None):
@@ -127,7 +129,6 @@ class Dojo():
         if filename is None:
             for person in unallocated_people:
                 print(person)
-            # return unallocated_people
         else:
             with open(filename, 'w') as file:
                 file.writelines(unallocated_people)

@@ -20,7 +20,7 @@ import sys
 from models.dojo import Dojo
 from termcolor import colored
 from insta import instance
-from modules.ui import error
+from modules.ui import error,success
 
 
 def docopt_cmd(func):
@@ -77,7 +77,7 @@ class DOJO(cmd.Cmd):
     def do_print_room(self, arg):
         """Usage: print_room <name>"""
         room = instance.print_room(arg['<name>'])
-        if room == 'Room %s does not exist!'%(arg['<name>']):
+        if room == error('Room %s does not exist!'%(arg['<name>'])):
             print(room)
         else:
             print(room)

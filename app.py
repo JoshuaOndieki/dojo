@@ -2,6 +2,9 @@
     Usage:
         create_room <type_room> <name>...
         add_person <firstname> <surname> <person_type> [<wants_accomodation>]
+        print_room <name>
+        print_allocations [<filename>]
+        print_unallocations [<filename>]
         dojo (-i | --interactive)
         dojo (-h | --help | --version)
     Options:
@@ -17,6 +20,7 @@ import sys
 from models.dojo import Dojo
 from termcolor import colored
 from insta import instance
+from modules.ui import error,success
 
 
 def docopt_cmd(func):
@@ -50,7 +54,7 @@ def docopt_cmd(func):
 
 
 def intro():
-    os.system("clear")
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(__doc__)
 
 
@@ -70,9 +74,32 @@ class DOJO(cmd.Cmd):
         print(instance.add_person(arg['<firstname>'],arg['<surname>'],arg['<person_type>'],arg['<wants_accomodation>']))
 
     @docopt_cmd
+    def do_print_room(self, arg):
+        """Usage: print_room <name>"""
+        room = instance.print_room(arg['<name>'])
+        if room == error('Room %s does not exist!'%(arg['<name>'])):
+            print(room)
+        else:
+            print(room)
+            print('``````````````````````````````````````````')
+            for person in room:
+                print(room[person])
+
+    @docopt_cmd
+    def do_print_allocations(self, arg):
+        """Usage: print_allocations [<filename>]"""
+        instance.print_allocations(arg['<filename>'])
+
+    @docopt_cmd
+    def do_print_unallocations(self, arg):
+        """Usage: print_allocations [<filename>]"""
+        unallocations = instance.print_unallocations(arg['<filename>'])
+
+
+    @docopt_cmd
     def do_quit(self, arg):
         """Usage: quit"""
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         print ('Dojo Exiting')
         exit()
 
@@ -81,5 +108,5 @@ if __name__ == "__main__":
         intro()
         DOJO().cmdloop()
     except KeyboardInterrupt:
-        os.system("clear")
-        print('Dojo Exiting')
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(error('DOJO EXITING'))

@@ -125,15 +125,16 @@ class Dojo():
             # save to file
             with open(filename, 'w') as file:
                 file.writelines(room_members)
+            print(success('Saved to file %s'%(filename)))
 
     def print_unallocations(self, filename=None):
-        def type_accomodation(person):  #find out the type of person, if fellow find if wants accomodation
+        def type_accomodation_fn(person):  #find out the type of person, if fellow find if wants accomodation
             if person in self.fellows and person in self.wants_accomodation:
                 return ' FELLOW Y'
             elif person in self.fellows and person not in self.wants_accomodation:
                 return ' FELLOW N'
             elif person in self.staff:
-                return 'STAFF'
+                return ' STAFF'
             return ' UNKNOWN'
         allocated = []
         for room in self.all_rooms:
@@ -143,7 +144,7 @@ class Dojo():
         unallocated_people = []
         for person in self.all_people:
             if person not in allocated:
-                type_accomodation = type_accomodation(person)
+                type_accomodation = type_accomodation_fn(person)
                 unallocated_people.append(person + type_accomodation +'\n')
         if filename is None:
             for person in unallocated_people:
@@ -151,3 +152,4 @@ class Dojo():
         else:
             with open(filename, 'w') as file:
                 file.writelines(unallocated_people)
+            print(success('Saved to file %s'%(filename)))

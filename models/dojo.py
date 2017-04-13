@@ -15,6 +15,7 @@ class Dojo():
         self.staff = []
         self.all_rooms = {}
         self.all_people = []
+        self.wants_accomodation = []
 
     def create_room(self, name, room_type):
         if room_type.lower() not in ['office', 'livingspace']:
@@ -49,6 +50,8 @@ class Dojo():
                 return error('Names can not be or contain integers!')
             if person_type.lower() == 'fellow':
                 # create a fellow
+                firstname = firstname.capitalize()
+                surname = surname.capitalize()
                 fellow = Fellow(firstname, surname)
                 self.fellows.append(firstname + ' ' + surname)
                 self.all_people.append(firstname + ' ' + surname)
@@ -68,6 +71,8 @@ class Dojo():
                             break
                 else:
                     print(error('No office to assign!'))
+                if wants_accomodation == 'Y':
+                    self.wants_accomodation.append(firstname + ' ' + surname)
                 if wants_accomodation == 'Y' and self.livingspaces:
                     all_livingspaces = list(self.livingspaces.keys())
                     checked_livingspaces = []
@@ -120,8 +125,17 @@ class Dojo():
             # save to file
             with open(filename, 'w') as file:
                 file.writelines(room_members)
+            print(success('Saved to file %s'%(filename)))
 
     def print_unallocations(self, filename=None):
+        def type_accomodation_fn(person):  #find out the type of person, if fellow find if wants accomodation
+            if person in self.fellows and person in self.wants_accomodation:
+                return ' FELLOW Y'
+            elif person in self.fellows and person not in self.wants_accomodation:
+                return ' FELLOW N'
+            elif person in self.staff:
+                return ' STAFF'
+            return ' UNKNOWN'
         allocated = []
         for room in self.all_rooms:
             members = self.all_rooms[room]
@@ -130,10 +144,12 @@ class Dojo():
         unallocated_people = []
         for person in self.all_people:
             if person not in allocated:
-                unallocated_people.append(person + '\n')
+                type_accomodation = type_accomodation_fn(person)
+                unallocated_people.append(person + type_accomodation +'\n')
         if filename is None:
             for person in unallocated_people:
                 print(person)
         else:
             with open(filename, 'w') as file:
                 file.writelines(unallocated_people)
+            print(success('Saved to file %s'%(filename)))

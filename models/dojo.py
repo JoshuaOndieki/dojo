@@ -42,14 +42,14 @@ class Dojo():
             return (error('Only fellow and staff allowed!'))
         if not isinstance(firstname, str) or not isinstance(surname, str):
             return (error('People names can only be strings!'))
-        if firstname + ' ' + surname in self.all_people:
+        if firstname.capitalize() + ' ' + surname.capitalize() in self.all_people:
             return (error('%s %s exists!' % (firstname, surname)))
         else:
             if represents_int(firstname) or represents_int(surname):
                 return error('Names can not be or contain integers!')
             if person_type.lower() == 'fellow':
                 # create a fellow
-                fellow = Fellow(firstname, surname)
+                fellow = Fellow(firstname.capitalize(), surname.capitalize())
                 self.fellows.append(firstname + ' ' + surname)
                 self.all_people.append(firstname + ' ' + surname)
                 if self.offices:
